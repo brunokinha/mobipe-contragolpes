@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Proteção ao Idoso - Anti-Golpes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 0;
+      padding: 0 15px 40px;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 25px 10px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    nav button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 22px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+
+    nav button:hover {
+      background-color: #005fa3;
+    }
+
+    nav button.active {
+      background-color: #004080;
+      box-shadow: 0 0 12px #003366;
+    }
+
+    section.aba {
+      display: none;
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: white;
+      border-radius: 10px;
+      padding: 25px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    section.aba.ativa {
+      display: block;
+    }
+
+    h2 {
+      color: #0077cc;
+      font-size: 26px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #0077cc;
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      color: #004080;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    p, ul {
+      font-size: 16px;
+      margin-bottom: 18px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    /* Quiz Styles */
+    #quiz {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 10px;
+      padding: 25px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    #quiz h2 {
+      margin-top: 0;
+    }
+
+    .quiz-question {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .quiz-options {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 25px 0;
+    }
+
+    .quiz-options li {
+      margin-bottom: 12px;
+    }
+
+    .quiz-options button {
+      width: 100%;
+      background-color: #0077cc;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: left;
+    }
+
+    .quiz-options button:hover {
+      background-color: #005fa3;
+    }
+
+    .quiz-options button.correct {
+      background-color: #28a745 !important; /* verde */
+      cursor: default;
+    }
+
+    .quiz-options button.wrong {
+      background-color: #dc3545 !important; /* vermelho */
+      cursor: default;
+    }
+
+    #quiz-feedback {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      min-height: 56px;
+    }
+
+    #quiz-next {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 17px;
+      cursor: pointer;
+      display: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #quiz-next:hover {
+      background-color: #005fa3;
+    }
+
+    #quiz-score {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 20px;
+      text-align: center;
+      color: #004080;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Proteção ao Idoso - Anti-Golpes
+  </header>
+
+  <nav>
+    <button class="active" onclick="mostrarAba('inicio', this)">Início</button>
+    <button onclick="mostrarAba('golpes', this)">Golpes Comuns</button>
+    <button onclick="mostrarAba('protecao', this)">Como se Proteger</button>
+    <button onclick="mostrarAba('listaNegra', this)">Lista Negra dos Golpistas</button>
+    <button onclick="mostrarAba('ajuda', this)">Ajuda se Cair em Golpes</button>
+    <button onclick="mostrarAba('quiz', this)">Teste seu Conhecimento</button>
+  </nav>
+
+  <!-- Início -->
+  <section id="inicio" class="aba ativa">
+    <h2>Bem-vindo!</h2>
+    <p>Este site foi criado para ajudar idosos a entenderem o que são golpes, como eles funcionam e como se proteger. A informação é a melhor defesa. Navegue pelas abas acima para aprender e se proteger melhor.</p>
+
+    <h3>Por que idosos são alvos?</h3>
+    <p>Golpistas sabem que idosos podem ser mais vulneráveis devido à falta de familiaridade com tecnologia, à confiança maior nas pessoas e ao isolamento social. Por isso, é importante aprender os sinais dos golpes e manter contato com familiares e amigos.</p>
+
+    <h3>O que esperar aqui</h3>
+    <p>Você vai encontrar explicações detalhadas, dicas para proteção, ajuda em caso de golpe, e até um quiz para testar seu conhecimento. Tudo em uma linguagem simples e clara.</p>
+  </section>
+
+  <!-- Golpes Comuns -->
+  <section id="golpes" class="aba">
+    <h2>Golpes Comuns</h2>
+
+    <h3>Golpe do WhatsApp falso</h3>
+    <p>Golpistas fingem ser filhos, netos ou conhecidos e pedem dinheiro com alguma desculpa urgente, tipo acidente, viagem ou emergência. Eles usam números diferentes para não serem descobertos e tentam pressionar para receber o valor rápido.</p>
+
+    <h3>Golpe do prêmio ou sorteio falso</h3>
+    <p>Você recebe uma mensagem ou ligação dizendo que ganhou um prêmio, um carro ou uma viagem, mas para receber precisa pagar uma taxa antecipada ou fornecer seus dados pessoais. Isso é golpe e nunca deve ser aceito.</p>
+
+    <h3>Golpe do falso funcionário do banco</h3>
+    <p>Alguém liga dizendo ser do banco, pedindo senhas, códigos do SMS ou para transferir dinheiro para uma conta “segura”. Bancos nunca pedem essas informações por telefone, então jamais passe seus dados.</p>
+
+    <h3>Golpe do PIX errado</h3>
+    <p>Golpistas enviam links falsos ou mensagens pedindo para fazer um PIX para uma conta fraudulenta, às vezes fingindo ser órgãos oficiais ou empresas conhecidas.</p>
+
+    <h3>Golpes por e-mail e SMS</h3>
+    <p>Mensagens pedindo atualização de cadastro, instalação de aplicativos ou com links estranhos podem ser armadilhas para roubo de dados e instalação de vírus.</p>
+
+    <h3>Golpe do empréstimo falso</h3>
+    <p>Golpistas oferecem empréstimos fáceis, com juros baixos e aprovação rápida, mas pedem pagamento adiantado de taxas ou dados pessoais para liberar o dinheiro. É cilada: nunca pague nada antecipado.</p>
+
+    <h3>Por que isso acontece?</h3>
+    <p>Os golpistas exploram a pressa, o medo, a confiança e o desconhecimento tecnológico para enganar as vítimas. Eles sabem que muitos idosos não têm prática com celular ou internet, e usam isso para tirar vantagem.</p>
+
+    <h3>Como reconhecer sinais de golpe?</h3>
+    <ul>
+      <li>Pressa para fazer pagamentos ou passar dados;</li>
+      <li>Pedidos para não contar para ninguém;</li>
+      <li>Mensagens com erros de português ou design estranho;</li>
+      <li>Solicitação de dados pessoais por telefone ou mensagem;</li>
+      <li>Links suspeitos ou números desconhecidos;</li>
+      <li>Promessas fáceis de dinheiro ou prêmios;</li>
+      <li>Pedido de pagamento antecipado para “liberar” empréstimos.</li>
+    </ul>
+  </section>
+
+  <!-- Como se Proteger -->
+  <section id="protecao" class="aba">
+    <h2>Como se Proteger</h2>
+
+    <h3>Nunca forneça informações pessoais por telefone ou mensagem</h3>
+    <p>Bancos e órgãos oficiais nunca pedem senhas ou códigos pelo telefone. Se receber ligação suspeita, desligue e ligue diretamente para o número oficial do banco.</p>
+
+    <h3>Desconfie da urgência e pressão</h3>
+    <p>Golpistas tentam te apressar para que não pense direito. Respire fundo, converse com familiares antes de tomar qualquer decisão.</p>
+
+    <h3>Use senhas fortes e diferentes para cada conta</h3>
+    <p>Evite datas de aniversário ou números fáceis. Use senhas complexas e troque regularmente.</p>
+
+    <h3>Atualize seus dispositivos e aplicativos</h3>
+    <p>Atualizações ajudam a corrigir falhas de segurança e impedem ataques de vírus e malwares.</p>
+
+    <h3>Bloqueie números e contatos suspeitos</h3>
+    <p>Se receber ligações ou mensagens estranhas, bloqueie e não retorne o contato. Use aplicativos que filtram chamadas indesejadas.</p>
+
+    <h3>Tenha cuidado com links e anexos</h3>
+    <p>Não clique em links ou abra anexos de remetentes desconhecidos ou suspeitos, mesmo que pareçam oficiais.</p>
+
+    <h3>Peça ajuda e converse com familiares</h3>
+    <p>Se estiver na dúvida, peça para alguém de confiança ajudar a verificar a mensagem ou ligação.</p>
+
+    <h3>Configure segurança no seu celular</h3>
+    <ul>
+      <li>Ative bloqueio por senha ou biometria;</li>
+      <li>Use autenticação em dois fatores sempre que possível;</li>
+      <li>Instale antivírus confiáveis;</li>
+      <li>Não instale aplicativos fora das lojas oficiais.</li>
+    </ul>
+  </section>
+
+  <!-- Lista Negra dos Golpistas (Nova versão) -->
+  <section id="listaNegra" class="aba">
+    <h2>Lista Negra dos Golpistas</h2>
+
+    <p>Essa “Lista Negra” não é papo furado: é uma lista REAL que os golpistas compartilham entre eles para controlar quem é “fácil” ou “difícil” de enganar.</p>
+
+    <p>Funciona assim: cada golpista passa informações sobre as vítimas para outros, falando quem caiu no golpe, quem desconfiou, quem reclamou ou denunciou. Quem é marcado como “ruim” na lista recebe menos ligações e mensagens — ou seja, você fica menos incomodado.</p>
+
+    <h3>Como você pode usar isso a seu favor</h3>
+    <p>O objetivo é fazer o golpista te marcar como “difícil” para eles desistirem de tentar. Para isso, você pode:</p>
+
+    <ul>
+      <li><strong>Responder com calma e confusão</strong>: Mostre que você entende do assunto, faz perguntas difíceis e não vai cair fácil;</li>
+      <li><strong>Não passar dados pessoais</strong> e nunca pagar nada adiantado;</li>
+      <li><strong>Denunciar golpes</strong> para órgãos oficiais e para o seu banco;</li>
+      <li><strong>Bloquear números e não dar abertura</strong> para os golpistas;</li>
+      <li><strong>Conversar com familiares</strong> para agir junto e dar suporte;</li>
+      <li><strong>Manter o golpista “ocupado” sem passar informações</strong>, fazendo ele perder tempo e desistir;</li>
+      <li><strong>Registrar as tentativas</strong> para depois ajudar na denúncia e impedir que outros caiam no golpe.</li>
+    </ul>
+
+    <p>Quando os golpistas perceberem que você não é vítima fácil, eles passam a ignorar seu número para economizar tempo e tentar outras pessoas mais vulneráveis.</p>
+
+    <p><em>Ou seja: quanto mais você proteger sua informação e denunciar, menos vai ser importunado. Fazendo o golpista “te marcar na lista ruim”, você fica livre deles.</em></p>
+  </section>
+
+  <!-- Ajuda se Cair em Golpes -->
+  <section id="ajuda" class="aba">
+    <h2>Ajuda se Cair em Golpes</h2>
+
+    <h3>Passos imediatos após o golpe</h3>
+    <p>Se perceber que foi vítima de um golpe, entre em contato imediatamente com o banco para bloquear contas, cartões e operações suspeitas. Quanto mais rápido agir, menores os prejuízos.</p>
+
+    <h3>Registrar boletim de ocorrência</h3>
+    <p>Procure a delegacia mais próxima ou utilize plataformas online para registrar o boletim de ocorrência. Isso formaliza a denúncia e ajuda nas investigações.</p>
+
+    <h3>Procure ajuda psicológica</h3>
+    <p>Ser vítima de golpe pode causar medo, vergonha e ansiedade. Converse com amigos, familiares ou profissionais para receber suporte emocional.</p>
+
+    <h3>Como um familiar pode ajudar</h3>
+    <ul>
+      <li>Escute sem julgar, mostrando apoio e paciência;</li>
+      <li>Ajude a bloquear contatos suspeitos no celular ou telefone;</li>
+      <li>Acompanhe a vítima para registrar boletim de ocorrência e tratar com o banco;</li>
+      <li>Ensine sobre proteção e riscos para evitar novos golpes;</li>
+      <li>Monitore movimentações financeiras até a situação ser resolvida;</li>
+      <li>Estimule a comunicação frequente para reduzir isolamento e vulnerabilidade.</li>
+    </ul>
+
+    <h3>Não se culpe</h3>
+    <p>Golpes são crimes que podem acontecer com qualquer pessoa. O importante é agir rápido e buscar ajuda para minimizar os danos.</p>
+
+    <h3>Denuncie golpes</h3>
+    <p>Informe órgãos como PROCON, polícia civil, ou plataformas online como o <a href="https://www.gov.br/pt-br/servicos/denunciar-crimes-na-internet" target="_blank" rel="noopener">SaferNet Brasil</a> para ajudar a combater esses crimes.</p>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="aba">
+    <h2>Teste seu Conhecimento</h2>
+    <div id="quiz-container">
+
+      <div id="quiz-question" class="quiz-question"></div>
+
+      <ul id="quiz-options" class="quiz-options"></ul>
+
+      <div id="quiz-feedback"></div>
+
+      <button id="quiz-next">Próxima</button>
+
+      <div id="quiz-score"></div>
+
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Proteção ao Idoso - Todos os direitos reservados.
+  </footer>
+
+<script>
+  // Função para embaralhar array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  // Dados do quiz
+  const quizData = [
+    {
+      pergunta: "O que é importante fazer antes de aceitar uma solicitação urgente de dinheiro?",
+      respostas: [
+        {letra: "a", texto: "Confirmar a história com um familiar próximo"},
+        {letra: "b", texto: "Enviar o dinheiro rápido para ajudar"},
+        {letra: "c", texto: "Ignorar a mensagem"}
+      ],
+      correta: "a",
+      explicacao: "Sempre confirme com a família antes para evitar golpes e decisões precipitadas."
+    },
+    {
+      pergunta: "Qual desses é um golpe comum no WhatsApp para idosos?",
+      respostas: [
+        {letra: "a", texto: "Pedido de dinheiro de um falso filho ou neto"},
+        {letra: "b", texto: "Mensagem de promoção oficial do banco"},
+        {letra: "c", texto: "Ligações da operadora para confirmar dados"}
+      ],
+      correta: "a",
+      explicacao: "Golpistas fingem ser familiares para pedir dinheiro urgente."
+    },
+    {
+      pergunta: "Por que muitos idosos têm dificuldade em identificar golpes online?",
+      respostas: [
+        {letra: "a", texto: "Confiança excessiva e pouca familiaridade com tecnologia"},
+        {letra: "b", texto: "Sempre conversam com a família antes"},
+        {letra: "c", texto: "Usam apenas o telefone fixo"}
+      ],
+      correta: "a",
+      explicacao: "A falta de prática com tecnologia e a confiança tornam os idosos vulneráveis."
+    },
+    {
+      pergunta: "O que NÃO se deve fazer ao receber mensagens com links suspeitos?",
+      respostas: [
+        {letra: "a", texto: "Apagar ou pedir ajuda para um familiar"},
+        {letra: "b", texto: "Clicar para ver do que se trata"},
+        {letra: "c", texto: "Ignorar a mensagem"}
+      ],
+      correta: "b",
+      explicacao: "Clicar em links suspeitos pode instalar vírus ou permitir roubo de dados."
+    },
+    {
+      pergunta: "Se alguém ligar dizendo ser do banco e pedir seus dados pessoais, o que fazer?",
+      respostas: [
+        {letra: "a", texto: "Desligar e ligar diretamente no banco pelo telefone oficial"},
+        {letra: "b", texto: "Fornecer os dados para ajudar"},
+        {letra: "c", texto: "Passar os dados só se for urgente"}
+      ],
+      correta: "a",
+      explicacao: "Bancos nunca pedem dados por telefone. Ligue no número oficial para confirmar."
+    },
+    {
+      pergunta: "Por que o isolamento social pode aumentar o risco de golpes em idosos?",
+      respostas: [
+        {letra: "a", texto: "Porque falam mais com familiares"},
+        {letra: "b", texto: "Solidão faz confiar mais em desconhecidos"},
+        {letra: "c", texto: "Ficam mais atentos às notícias"}
+      ],
+      correta: "b",
+      explicacao: "O isolamento pode aumentar a vulnerabilidade pela solidão e confiança em estranhos."
+    },
+    {
+      pergunta: "Como um familiar pode ajudar um idoso a evitar golpes?",
+      respostas: [
+        {letra: "a", texto: "Ignorando as dúvidas do idoso"},
+        {letra: "b", texto: "Explicando golpes e ajudando a configurar segurança"},
+        {letra: "c", texto: "Deixando o idoso resolver sozinho"}
+      ],
+      correta: "b",
+      explicacao: "Orientação e ajuda prática aumentam a segurança do idoso."
+    },
+    {
+      pergunta: "Qual desses sinais indica que uma mensagem pode ser golpe?",
+      respostas: [
+        {letra: "a", texto: "Pedido urgente de dinheiro ou dados pessoais"},
+        {letra: "b", texto: "Mensagem oficial do banco com seu nome"},
+        {letra: "c", texto: "Mensagem de amigo conhecido"}
+      ],
+      correta: "a",
+      explicacao: "Urgência e pedidos de dinheiro são características comuns de golpes."
+    },
+    {
+      pergunta: "O que fazer se o idoso cair em golpe financeiro?",
+      respostas: [
+        {letra: "a", texto: "Procurar o banco e registrar boletim de ocorrência"},
+        {letra: "b", texto: "Tentar resolver sozinho"},
+        {letra: "c", texto: "Continuar usando o serviço normalmente"}
+      ],
+      correta: "a",
+      explicacao: "Agir rápido com banco e polícia é essencial para minimizar prejuízos."
+    },
+    {
+      pergunta: "Qual medida simples aumenta a segurança do celular do idoso?",
+      respostas: [
+        {letra: "a", texto: "Usar senhas fortes e não compartilhar"},
+        {letra: "b", texto: "Compartilhar senha com família"},
+        {letra: "c", texto: "Usar código do relógio"}
+      ],
+      correta: "a",
+      explicacao: "Senhas fortes mantêm o celular protegido."
+    },
+
+    // 10 novas perguntas com respostas embaralhadas e letras aleatórias
+
+    {
+      pergunta: "O que é a 'Lista Negra' que golpistas usam entre eles?",
+      respostas: [
+        {letra: "a", texto: "Uma lista REAL compartilhada entre golpistas com nomes de quem é difícil ou fácil de enganar"},
+        {letra: "b", texto: "Uma lista do governo para proteger idosos"},
+        {letra: "c", texto: "Uma lista de números bloqueados pelo banco"}
+      ],
+      correta: "a",
+      explicacao: "Golpistas compartilham essa lista para saberem quem ignorar e quem tentar."
+    },
+    {
+      pergunta: "O que acontece com quem é marcado como ‘ruim’ nessa lista?",
+      respostas: [
+        {letra: "a", texto: "Recebe menos ligações e incomoda menos"},
+        {letra: "b", texto: "Recebe mais ligações insistentes"},
+        {letra: "c", texto: "Recebe prêmios e ofertas"}
+      ],
+      correta: "a",
+      explicacao: "Ser marcado como difícil faz o golpista desistir e te ignorar."
+    },
+    {
+      pergunta: "Como você pode fazer os golpistas te marcarem como difícil na lista?",
+      respostas: [
+        {letra: "a", texto: "Demonstrando que não vai cair fácil, fazendo perguntas e não passando dados"},
+        {letra: "b", texto: "Pagando o que pedem"},
+        {letra: "c", texto: "Atendendo rápido e falando tudo"}
+      ],
+      correta: "a",
+      explicacao: "Golpistas evitam perder tempo com quem é esperto e resistente."
+    },
+    {
+      pergunta: "Qual é o golpe do empréstimo falso?",
+      respostas: [
+        {letra: "a", texto: "Pedem dinheiro adiantado para liberar empréstimo que não existe"},
+        {letra: "b", texto: "Oferecem empréstimo sem cobrar nada"},
+        {letra: "c", texto: "Confirmam dados do banco"}
+      ],
+      correta: "a",
+      explicacao: "Nunca pague nada antes de receber um empréstimo real."
+    },
+    {
+      pergunta: "Por que golpistas criam senso de urgência nas vítimas?",
+      respostas: [
+        {letra: "a", texto: "Para fazer a vítima agir rápido e sem pensar direito"},
+        {letra: "b", texto: "Para deixar a vítima tranquila"},
+        {letra: "c", texto: "Para fazer a vítima pedir mais informações"}
+      ],
+      correta: "a",
+      explicacao: "Pressa faz a pessoa cometer erros."
+    },
+    {
+      pergunta: "O que NÃO fazer ao receber ligação suspeita?",
+      respostas: [
+        {letra: "a", texto: "Desligar e ligar no número oficial do banco"},
+        {letra: "b", texto: "Passar informações pessoais pelo telefone"},
+        {letra: "c", texto: "Pedir ajuda para alguém confiável"}
+      ],
+      correta: "b",
+      explicacao: "Nunca forneça dados sem confirmação."
+    },
+    {
+      pergunta: "Como um familiar pode proteger um idoso?",
+      respostas: [
+        {letra: "a", texto: "Monitorando e conversando regularmente"},
+        {letra: "b", texto: "Ignorando mensagens do idoso"},
+        {letra: "c", texto: "Deixando o idoso resolver sozinho"}
+      ],
+      correta: "a",
+      explicacao: "Apoio constante reduz riscos."
+    },
+    {
+      pergunta: "Como identificar mensagens falsas com links suspeitos?",
+      respostas: [
+        {letra: "a", texto: "Erros de português e URLs estranhos"},
+        {letra: "b", texto: "Mensagens oficiais do banco"},
+        {letra: "c", texto: "Mensagens de amigos"}
+      ],
+      correta: "a",
+      explicacao: "Erros e links estranhos indicam golpe."
+    },
+    {
+      pergunta: "Qual atitude evitar para não cair em golpes?",
+      respostas: [
+        {letra: "a", texto: "Confiar em mensagens pedindo dados ou dinheiro"},
+        {letra: "b", texto: "Consultar familiares antes de agir"},
+        {letra: "c", texto: "Bloquear contatos suspeitos"}
+      ],
+      correta: "a",
+      explicacao: "Confiar demais é perigoso."
+    },
+    {
+      pergunta: "Por que golpistas evitam vítimas difíceis?",
+      respostas: [
+        {letra: "a", texto: "Porque questionam e demoram a responder"},
+        {letra: "b", texto: "Porque gostam de conversar"},
+        {letra: "c", texto: "Porque querem mais vítimas difíceis"}
+      ],
+      correta: "a",
+      explicacao: "Quem não cai rápido faz golpistas desistirem."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let answered = false;
+
+  const questionEl = document.getElementById('quiz-question');
+  const optionsEl = document.getElementById('quiz-options');
+  const feedbackEl = document.getElementById('quiz-feedback');
+  const nextBtn = document.getElementById('quiz-next');
+  const scoreEl = document.getElementById('quiz-score');
+
+  let questionAtualPrepa = null;
+
+  function prepareQuestion(q) {
+    // Copiar respostas pra não mexer no original
+    let respostas = [...q.respostas];
+
+    // Embaralha as respostas
+    shuffleArray(respostas);
+
+    // Reatribui letras a,b,c em ordem
+    const letras = ['a', 'b', 'c'];
+    respostas = respostas.map((r,i) => ({
+      letra: letras[i],
+      texto: r.texto
+    }));
+
+    // Ajusta a letra correta depois do shuffle
+    let corretaLetraNova = '';
+    for(let i=0; i<respostas.length; i++){
+      if(respostas[i].texto === q.respostas.find(r=>r.letra === q.correta).texto){
+        corretaLetraNova = letras[i];
+        break;
+      }
+    }
+
+    return {pergunta: q.pergunta, respostas, correta: corretaLetraNova, explicacao: q.explicacao};
+  }
+
+  function loadQuestion(){
+    answered = false;
+    feedbackEl.textContent = '';
+    nextBtn.style.display = 'none';
+    scoreEl.textContent = '';
+
+    // Prepara questão embaralhada
+    questionAtualPrepa = prepareQuestion(quizData[currentQuestion]);
+
+    questionEl.textContent = `${currentQuestion + 1}. ${questionAtualPrepa.pergunta}`;
+
+    optionsEl.innerHTML = '';
+    questionAtualPrepa.respostas.forEach(op => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.textContent = `${op.letra}) ${op.texto}`;
+      btn.onclick = () => selectOption(op.letra, btn);
+      li.appendChild(btn);
+      optionsEl.appendChild(li);
+    });
+  }
+
+  function selectOption(letra, botao){
+    if(answered) return;
+    answered = true;
+
+    const correta = questionAtualPrepa.correta;
+    if(letra === correta){
+      botao.classList.add('correct');
+      feedbackEl.textContent = `Resposta correta! ${questionAtualPrepa.explicacao}`;
+      score++;
+    } else {
+      botao.classList.add('wrong');
+      feedbackEl.textContent = `Resposta errada! A correta é a letra "${correta}". ${questionAtualPrepa.explicacao}`;
+
+      // Marca a correta para ajudar
+      Array.from(optionsEl.children).forEach(li => {
+        const btn = li.firstChild;
+        if(btn.textContent.startsWith(correta)){
+          btn.classList.add('correct');
+        }
+      });
+    }
+
+    nextBtn.style.display = 'inline-block';
+  }
+
+  nextBtn.onclick = () => {
+    currentQuestion++;
+    if(currentQuestion >= quizData.length){
+      mostrarResultado();
+    } else {
+      loadQuestion();
+    }
+  };
+
+  function mostrarResultado(){
+    questionEl.textContent = 'Fim do quiz!';
+    optionsEl.innerHTML = '';
+    feedbackEl.textContent = '';
+    nextBtn.style.display = 'none';
+    scoreEl.textContent = `Você acertou ${score} de ${quizData.length} perguntas.`;
+    currentQuestion = 0;
+    score = 0;
+  }
+
+  function mostrarAba(id, botao) {
+    document.querySelectorAll('section.aba').forEach(sec => sec.classList.remove('ativa'));
+    document.getElementById(id).classList.add('ativa');
+
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    botao.classList.add('active');
+
+    // Se abrir quiz, carrega pergunta
+    if (id === 'quiz') loadQuestion();
+  }
+
+  // Carrega aba inicial quando abrir
+  mostrarAba('inicio', document.querySelector('nav button'));
+
+</script>
+</body>
+</html>
